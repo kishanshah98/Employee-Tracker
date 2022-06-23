@@ -1,6 +1,5 @@
 // Import inquirer
 const inquirer = require('inquirer');
-const { inherits } = require('util');
 
 // Optional: import asciiart-logo
 // import your database module
@@ -16,13 +15,9 @@ init();
 //    optional: display logo text, load main prompts using asciiart-logo
 //    call function to the main prompt for questions
 function init() {
-  console.log("Working");
   promptQuestions();
 }
 
-function promptQuestions() {
-  console.log("Prompts questions");
-}
 // function - main prompt for questions
 // - Prompt with the list of choices
 // - In .then callback, check user's response with the switch-case statement.
@@ -46,29 +41,81 @@ function promptQuestions() {
 //      - in case of remve employee, call the remove employee function
 //      - in default, call function to quit
 
+function promptQuestions() {
+  inquirer
+    .prompt ([
+      {
+        type: 'list',
+        message: 'Which of the following would you like to do?',
+        choices: ['View All Employees', 'Add Employee', 'Update Employee Role', 'View All Roles', 'Add Role', 'View All Departments', 'Add Department'],
+        name: 'options',
+      },
+    ])
+    .then((answers) => {
+      console.log(answers.options);
+      switch(answers.options) {
+        case 'View All Employees':
+          viewAllEmployees();
+          break;
+        case 'Add Employee':
+          addNewEmployee();
+          break;
+        case 'Update Employee Role':
+          updateEmployeeRole();
+          break;
+        case 'View All Roles':
+          viewAllRoles();
+          break;
+        case 'Add Role':
+          addRole();
+          break;
+        case 'View All Departments':
+          viewAllDepartments();
+          break;
+        case 'Add Department':
+          addDepartment();
+          break;
+        default:
+          exit();
+      }
+    })
+}
+
 // function - View all employees
   // 1. call find all employees method on database connection
   //    in .then callback, display returned data with console table method
   // 2. call function to load main prompt for questions
   //
+function viewAllEmployees() {
+  
+}
 
 // function - View all roles
 // 1. call find all roles method on database connection
 //    in .then callback, dispalay returned data with console table
 // 2. call function to load main prompt for questons
 //
+function viewAllRoles() {
+
+}
 
 // function - View all deparments
 //  1. call find all departments method on database connnection
 //      in .then call back, display returned data with console table
 //  2. call function to load main prompt for questions
 //
+function viewAllDepartments() {
+
+}
 
 // Add a department
 //  1. prompt user for the name of the department
 //      in .then callback, call create department method on database connection, passing the returned data as input argument
 //  2. call function to load main prompt for questions
 //
+function addDepartment() {
+
+}
 
 // functon - Add a role
 //  **prompt for user to enter the role, the salary, and what department the role belongs to
@@ -78,6 +125,9 @@ function promptQuestions() {
 //      in .then callback, call funcon to create role on database connection, passing returned data from prompt as input argument
 //  3. call function to load main prompt for questions
 //
+function addRole() {
+
+}
 
 // function - Add a new employee
 //  1. prompt for first_name and last_name
@@ -92,6 +142,9 @@ function promptQuestions() {
 //      in .then callback, create an employee object with variables for first name, last name, role id, manager id
 //  6. call function to create employee on database connection, passing the employee object as input argument
 //      in .then callback, call function to load main prompt for questions
+function addNewEmployee() {
+
+}
 
 // function - Update an employee's role
 //  1. call function to find all employees on database connection
@@ -109,9 +162,27 @@ function promptQuestions() {
 //      - in .then callback, assign returned user choice to a role id variable
 //  5. call function to update employee role, passing employee id variable and role id variable as input arguments
 //  6. call fucntion to load main prompt of questions
+function updateEmployeeRole() {
 
+}
 
 // function - Exit the application
+function exit() {
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // ========================
 //  OPTIONAL
