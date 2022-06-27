@@ -1,50 +1,51 @@
-/************************************************
-  REMOVE ALL COMMENTS BEFORE SUBMITTING YOUR HOMEWORK
-*************************************************/
+const connection = require('./connection')
 
-// STEPS
-// 1. Declare a class for database methods encapsulating all SQL statements
-// 2. Exports the database object instantiated from the database class, passing connection object to the class constructor
+class DB {
+  constructor(connection) {
+    this.connection = connection;
+  }
 
+  findDepartment() {
+    return this.connection.promise().query(
+      'SELECT * FROM department;'
+    )
+  };
 
-// As suggested in README.md guideline for this homework, you can choose to use constructor functions or class to develop the functions
-//  for SQL statements. Since class gives you cleaner syntax, this pseudo code is assumed that you use class for the implementation of
-//  SQL statements. Remember both constructor functions and classes are to be used to create objects.
+  findRoles() {
+    return this.connection.promise().query(
+      'SELECT roles.id, roles.title, department.name AS department, roles.salary FROM roles LEFT JOIN department ON roles.department_id = department.id;'
+    )
+  };
 
-// HINT: To use promise wrapper, for example:
-//  const databaseConnection = mysql.createConnection({...});
-//  databaseConnection.promise().query(...);
-//
-//  - the whole query statement needs to be returned in the same line for the caller to receive the data with promise .then or async/await
-//        for example: return databaseConnection.promise().query(...);
-//  - all queries that take in parameters need to be prepared statements
+  findEmployees() {
+    return this.connection.promise().query(
+      'SELECT employee.id, employee.first_name, employee.last_name, roles.title, department.name AS department, roles.salary, CONCAT(manager.first_name, " ", manager.last_name) AS manager FROM employee LEFT JOIN roles ON employee.role_id = roles.id LEFT JOIN department ON roles.department_id = department.id LEFT JOIN employee manager ON manager.id = employee.manager_id;'
+    )
+  };
 
-// =============
-// MAIN PROCESS
-// =============
-// import database connection from the current db folder
+  createEmployee(newEmployee) {
+    return this.connection.promise().query(
+      'INSERT INTO employee SET ?', newEmployee
+    )
+  };
 
-// class - for database or database access object
-//  1. constructor - takes in database connection as input parameter and assign it to the instant variable
-//  2. method - find all employees, join with roles and departments to display their roles, salaries, departments, and managers
-//  3. method - create a new employee - takes employee object as input parameter
-//  4. method - update employee's role - takes employee id and role id as input parameters
-//  5. method - find all roles - join with departments to diplay department names
-//  6. method - create a new role - takes in role object as input parameter
-//  7. method - find all departments
-//  8. method - create a new department - takes in department object as input parameter
+  createDepartment(departmentName) {
+    return this.connection.promise().query(
+      'INSERT INTO department (name) VALUES (?)' , departmentName
+    )
+  };
 
-// ================
-// OPTIONAL METHODS
-// ================
+  createRoles(roles) {
+    return this.connection.promise().query(
+      'INSERT INTO roles SET ?', roles
+    )
+  };
 
-//  - method: Find all employees except the given employee id
-//  - method: Find all employees in a given department, join with roles to display role titles
-//  - method: Find all employees by manager, join with departments and roles to display titles and department names
-//  - method: Find all departments, join with employees and roles and sum up utilized department budget
-//  - method: Remove a department
-//  - method: Remove a role from the db
-//  - method: Update the given employee's manager
-//  - method: Remove an employee with the given id
+  updateEmployeeRole(role_id, employee) {
+    return this.connection.promise().query(
+      'UPDATE employee SET role_id = ? WHERE id = ?', [role_id, employee]
+    )
+  }
+}
 
-
+module.exports = new DB(connection);
