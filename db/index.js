@@ -1,5 +1,6 @@
 const connection = require('./connection')
 
+// Class created with constructor and methods for each choice
 class DB {
   constructor(connection) {
     this.connection = connection;
@@ -47,5 +48,5 @@ class DB {
     )
   }
 }
-
+// Exports class
 module.exports = new DB(connection);

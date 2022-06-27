@@ -10,6 +10,7 @@ function init() {
   promptQuestions();
 }
 
+// Prompts user to list of options and sends to function needed based on their choice
 function promptQuestions() {
   inquirer
     .prompt([
@@ -50,6 +51,7 @@ function promptQuestions() {
     })
 }
 
+// Displays all employee table
 function viewAllEmployees() {
   db.findEmployees()
     .then(([employees]) => {
@@ -60,6 +62,7 @@ function viewAllEmployees() {
     })
 };
 
+// Displays roles table
 function viewAllRoles() {
   db.findRoles()
     .then(([roles]) => {
@@ -70,6 +73,7 @@ function viewAllRoles() {
     })
 }
 
+// Displays department table
 function viewAllDepartments() {
   db.findDepartment()
     .then(([departments]) => {
@@ -80,6 +84,7 @@ function viewAllDepartments() {
     })
 }
 
+// Prompts user the name of new department and adds it to table
 function addDepartment() {
   inquirer
     .prompt([
@@ -99,6 +104,7 @@ function addDepartment() {
     })
 }
 
+// Prompts user for the department name, salary, and new role name to input into role table
 function addRole() {
   db.findDepartment()
     .then(([departments]) => {
@@ -140,6 +146,7 @@ function addRole() {
     });
 }
 
+// Adds new employee to table
 function addNewEmployee() {
   inquirer
     .prompt([
@@ -205,6 +212,7 @@ function addNewEmployee() {
     })
 }
 
+// Allows user to update an employee's role
 function updateEmployeeRole() {
   db.findEmployees()
     .then(([employees]) => {
@@ -248,7 +256,7 @@ function updateEmployeeRole() {
     })
 }
 
-// function - Exit the application
+// Exits the application
 function exit() {
   process.exit();
 }
