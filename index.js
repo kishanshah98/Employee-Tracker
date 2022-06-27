@@ -1,6 +1,4 @@
 const inquirer = require('inquirer');
-const { title } = require('process');
-const { connection } = require('./db');
 
 const db = require("./db");
 

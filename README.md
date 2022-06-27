@@ -24,7 +24,7 @@ In this command-line application, the user is able to input their seed data incl
 - Console.table
 
 Screencastify link provided below:
-[Screencastify link]()
+[Screencastify link](https://drive.google.com/file/d/1VJykzvZin_fojNtUGbunXX5UJ4FzGPx4/view)
 
 ## License
 MIT
